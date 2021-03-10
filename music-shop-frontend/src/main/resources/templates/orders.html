@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet"
+          th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/daterangepicker.css}">
+    <title>Orders List</title>
+</head>
+<body>
+
+<header>
+    <nav class="pl-2 navbar navbar-expand-sm navbar-dark bg-dark text-light  p-0">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <a class="nav-item nav-link active"
+                   href="#"
+                   th:href="@{/orders}">Orders</a>
+                <a class="nav-item nav-link"
+                   href="#"
+                   th:href="@{/items}">Assortment</a>
+            </ul>
+        </div>
+    </nav>
+    <nav id="main-header"
+         class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
+        <span class="navbar-brand text-uppercase mr-auto">Orders</span>
+        <ul class="navbar-nav float-right">
+            <li class="nav-item">
+                <a href="order.html"
+                   th:href="@{/orders/new}"
+                   class="btn btn-light"
+                   title="New order"
+                   data-toggle="tooltip"
+                   data-placement="bottom">
+                    <i class="fa fa-plus"></i> <span
+                        class="d-none d-sm-inline">New Order</span></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<section id="orders">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                        <tr class="d-flex">
+                            <th class="col-3">Order</th>
+                            <th class="col-3 text-center">Date</th>
+                            <th class="col-3 text-center">Cost</th>
+                            <th class="col-3 text-right">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="d-flex"
+                            th:each="order : ${orders}">
+
+                            <td class="col-3"><a href="orderview.html"
+                                   th:href="@{|/orders/orderview/${order.orderId}|}"
+                                   th:text="${order.orderId}"
+                                   class="btn-lg btn-outline-secondary"
+                                   title="Order"
+                                   data-toggle="tooltip"
+                                   data-placement="top"></a></td>
+                            <td class="col-3 text-center"
+                                th:text="${order.orderDate}"></td>
+                            <td class="col-3 text-center"
+                                th:text="${order.orderCost}"></td>
+                            <td class="col-3 text-right">
+                                <a href="order.html"
+                                   th:href="@{|/orders/edit/${order.orderId}|}"
+                                   class="btn-sm btn-outline-secondary"
+                                   title="Edit order"
+                                   data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-pencil"></i> <span
+                                        class="d-none d-md-inline">Edit</span></a>
+                                <span data-toggle="modal"
+                                      data-target="#deleteDialog"
+                                      th:attr="data-id=${order.orderId},data-name=${order.orderId}">
+                                <a href="#" class="btn-sm btn-outline-secondary"
+                                   title="delete order"
+                                   data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-remove"></i> <span class="d-none d-md-inline">Delete</span></a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <div class="container content">
+                                <div class="form-group">
+                                    <label for="date" class="col-sm-2 control-label">Select dates: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="date" name="date"
+                                               placeholder="Dates" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <hr/>
+    <p class="text-center">&copy; 2019</p>
+</footer>
+
+<!-- Confirm delete Modal -->
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <h5 class="modal-title" id="exampleModalLabel">Delete department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Please confirm delete
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a id="deleteUrl" href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<footer>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/moment.min.js}"></script>
+<script th:src="@{/js/daterangepicker.js}"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+    $('#deleteDialog').on('show.bs.modal', function (event) {
+        var target = $(event.relatedTarget)
+        $(this).find('.modal-body').text('Please confirm delete order: "' + target.data('name') + '"')
+        document.getElementById('deleteUrl').href = '/outer/orders/' + target.data('id');
+    })
+</script>
+
+<script>
+    $(function () {
+        $('input[name="date"]').daterangepicker({
+            locale: {
+                format: 'YYYY-MM-DD'
+            }
+        });
+        $('input[name="date"]').on('apply.daterangepicker', function (ev, picker) {
+            window.location.href = '/outer/orders/' + picker.startDate.format('YYYY-MM-DD') + '/' + picker.endDate.format('YYYY-MM-DD');
+
+        });
+        $('input[name="date"]').on('cancel.daterangepicker', function () {
+            $(this).val('');
+        });
+    });
+</script>
+</footer>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet"
+          th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+    <title>Assortment</title>
+</head>
+<body>
+
+<header>
+    <nav class="pl-2 navbar navbar-expand-sm navbar-dark bg-dark text-light  p-0">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <a class="nav-item nav-link"
+                   href="orders.html"
+                   th:href="@{/orders}">Orders</a>
+                <a class="nav-item nav-link active"
+                   href="assortment.html"
+                   th:href="@{/items}">Assortment</a>
+            </ul>
+        </div>
+    </nav>
+    <nav id="main-header"
+         class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
+        <span class="navbar-brand text-uppercase mr-auto">Assortment</span>
+        <ul class="navbar-nav float-right">
+            <li class="nav-item">
+                <a href="item.html"
+                   th:href="@{/items/new}"
+                   class="btn btn-light"
+                   title="Add item"
+                   data-toggle="tooltip"
+                   data-placement="bottom">
+                    <i class="fa fa-plus"></i> <span
+                        class="d-none d-sm-inline">Add</span></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<section id="assortment">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                        <tr class="d-flex">
+                            <th class="col-4">Name</th>
+                            <th class="col-4 text-center">Price</th>
+                            <th class="col-4 text-right">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="d-flex"
+                            th:each="item : ${assortment}">
+                            <td class="col-4"
+                                th:text="${item.itemName}"></td>
+                            <td class="col-4 text-center"
+                                th:text="${item.itemPrice}"></td>
+                            <td class="col-4 text-right">
+                                <a href="#"
+                                   th:href="@{|/items/edit/${item.itemId}|}"
+                                   class="btn-sm btn-outline-secondary"
+                                   title="Edit item"
+                                   data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-pencil"></i> <span
+                                        class="d-none d-md-inline">Edit</span></a>
+                                <span data-toggle="modal" data-target="#deleteDialog"
+                                      th:attr="data-id=${item.itemId}, data-name=${item.itemName}">
+                                <a
+                                        href="#" class="btn-sm btn-outline-secondary"
+                                   title="Delete item"
+                                   data-toggle="tooltip"
+                                   data-placement="top">
+                                    <i class="fa fa-remove"></i> <span class="d-none d-md-inline">Delete</span></a>
+                                </span>
+                                <form id="deleteForm"
+                                th:action="@{/items/${item.itemId}}"
+                                th:method="post"
+                                ></form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <hr/>
+    <p class="text-center">&copy; 2019</p>
+</footer>
+
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <h5 class="modal-title" id="exampleModalLabel">Delete department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Please confirm delete
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a id="deleteUrl" href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+    $('#deleteDialog').on('show.bs.modal', function (event) {
+        var target = $(event.relatedTarget)
+        $(this).find('.modal-body').text('Please confirm delete item: "' + target.data('name') + '"')
+
+        document.getElementById('deleteUrl').href = '/outer/items/' + target.data('id');
+    })
+</script>
+</body>
+</html>

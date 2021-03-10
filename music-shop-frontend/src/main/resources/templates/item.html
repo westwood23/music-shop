@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet"
+          th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+    <title>Edit Item</title>
+</head>
+<body>
+
+<header>
+    <nav class="pl-2 navbar navbar-expand-sm navbar-dark bg-dark text-light  p-0">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <a class="nav-item nav-link"
+                   href="orders.html"
+                   th:href="@{/orders}">Orders</a>
+                <a class="nav-item nav-link active"
+                   href="assortment.html"
+                   th:href="@{/items}">Assortment</a>
+            </ul>
+        </div>
+    </nav>
+    <nav id="main-header"
+         class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
+
+        <ul class="navbar-nav float-lg-left">
+            <li class="nav-item"
+                title="Back to list"
+                data-toggle="tooltip"
+                data-placement="bottom"><a href="#"
+                                           th:href="@{/items}"
+                                           class="btn btn-light btn-block"><i
+                    class="fa fa-times"></i>
+                <span class="d-none d-sm-inline">Cancel</span></a></li>
+        </ul>
+        <span class="navbar-brand text-uppercase mr-auto"
+              th:text="${isNew} ? 'New item' : 'Edit item'">Edit item</span>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="#"
+                                    th:onclick="@{document.forms['itemForm'].submit(); return false;}"
+                                    th:href="@{/items}"
+                                    class="btn btn-light"
+                                    title="Save item"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom">
+                <i class="fa fa-save"></i> <span class="d-none d-sm-inline">Save</span></a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="item">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="itemForm"
+                              th:object="${item}"
+                              th:action="${isNew} ? @{/items/new} : @{/items/edit/${item.itemId}}"
+                              th:method="@{post}">
+
+                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                                <p>Please fix errors below:</p>
+                            </div>
+
+                            <input id="itemId"
+                                   type="hidden"
+                                   th:field="*{itemId}"/>
+
+                            <div class="form-group">
+                                <label class="form-control-label"
+                                       for="item_name">Name</label>
+                                <input class="form-control"
+                                       th:class="${#fields.hasErrors('itemName')} ? 'form-control is-invalid' : 'form-control'"
+                                       id="item_name"
+                                       type="text"
+                                       th:field="*{itemName}"/>
+                                <div th:if="${#fields.hasErrors('itemName')}"
+                                     class="invalid-feedback"
+                                     th:errors="*{itemName}">[errors]
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label"
+                                       for="item_price">Price</label>
+                                <input class="form-control"
+                                       th:class="${#fields.hasErrors('itemPrice')} ? 'form-control is-invalid' : 'form-control'"
+                                       id="item_price"
+                                       type="text"
+                                       th:field="*{itemPrice}"/>
+                                <div th:if="${#fields.hasErrors('itemPrice')}"
+                                     class="invalid-feedback"
+                                     th:errors="*{itemPrice}">[errors]
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <hr/>
+    <p class="text-center">&copy; 2019</p>
+</footer>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+</script>
+</body>
+</html>

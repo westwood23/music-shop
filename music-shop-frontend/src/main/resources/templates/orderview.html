@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet"
+          th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+    <title>Edit Order</title>
+</head>
+<body>
+
+<header>
+    <nav class="pl-2 navbar navbar-expand-sm navbar-dark bg-dark text-light  p-0">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <a class="nav-order nav-link"
+                   href="orders.html"
+                   th:href="@{/orders}">Orders</a>
+                <a class="nav-order nav-link active"
+                   href="assortment.html"
+                   th:href="@{/items}">Assortment</a>
+            </ul>
+        </div>
+    </nav>
+    <nav id="main-header"
+         class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
+
+        <ul class="navbar-nav float-lg-left">
+            <li class="nav-order"
+                title="Back to list"
+                data-toggle="tooltip"
+                data-placement="bottom"><a href="#"
+                                           th:href="@{/orders}"
+                                           class="btn btn-light btn-block"><i
+                    class="fa fa-arrow-left"></i>
+                <span class="d-none d-sm-inline">Back</span></a></li>
+        </ul>
+        <span class="navbar-brand text-uppercase mr-auto">Order</span>
+    </nav>
+</header>
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <table class="table table-dark">
+                        <tbody class="table-dark">
+                        <tr class="d-flex">
+                            <td class="col-4 text-uppercase"
+                                th:text="${order.orderId!=null} ? 'Number: '+${order.orderId} : 'Number:'">
+                            </td>
+                            <td class="col-4 text-uppercase"
+                                th:text="${order.orderDate!=null} ? 'Date: '+${order.orderDate} : 'Date:'">
+                            </td>
+                            <td class="col-4 text-uppercase"
+                                th:text="${order.orderCost!=null} ? 'Cost: '+${order.orderCost} : 'Cost:'">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <table class="table table-light">
+                        <tbody class="table-light">
+                        <tr class="d-flex">
+                            <td class="col text-center"><h4>Items List</h4></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="order-info">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                        <tr class="d-flex">
+                            <th class="col-6 text-center">Name</th>
+                            <th class="col-6 text-center">Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="d-flex"
+                                th:each="item : ${items}">
+                                <td class="col-6 text-center" th:text="${item.itemName}">Guitar 1</td>
+                                <td class="col-6 text-center" th:text="${item.itemPrice}">1000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <hr/>
+    <p class="text-center">&copy; 2019</p>
+</footer>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</body>
+</html>
