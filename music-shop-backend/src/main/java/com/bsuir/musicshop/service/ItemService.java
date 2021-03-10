@@ -29,7 +29,7 @@ public class ItemService {
     }
 
     public List<Item> findAllItems() {
-        return repository.findAllFree();
+        return repository.findAll();
     }
 
     public Item findItemById(Integer itemId) {

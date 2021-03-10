@@ -3,6 +3,7 @@ package com.bsuir.musicshop.controller;
 import com.bsuir.musicshop.consumer.ItemRestConsumer;
 import com.bsuir.musicshop.model.Item;
 import com.bsuir.musicshop.validator.ItemValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,13 +15,20 @@ import javax.validation.Valid;
 @RequestMapping("/items")
 public class ItemController {
 
-    private ItemRestConsumer itemRestConsumer;
+    private final ItemRestConsumer itemRestConsumer;
 
-    private ItemValidator validator;
+    private final ItemValidator validator;
 
+
+    @Autowired
+    public ItemController(ItemRestConsumer itemRestConsumer, ItemValidator validator) {
+        this.itemRestConsumer = itemRestConsumer;
+        this.validator = validator;
+    }
 
     @GetMapping
     public final String allItems(Model model){
+        System.out.println("test controller");
         model.addAttribute("assortment", itemRestConsumer.findAllItems());
         return "assortment";
     }

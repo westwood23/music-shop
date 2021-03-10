@@ -10,19 +10,11 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@NamedNativeQuery(
-        name = "getNotReservedItems",
-        query = "select i.item_id, i.item_name, i.item_price from items i " +
-                "left join order_items io on io.item_id = i.item_id " +
-                "where i.item_id not in (select oi.item_id from order_items oi)",
-        resultClass = Item.class
-)
-@Table(name = "items")
 public class Item{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "item_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer itemId;
 
     @Column(name = "item_name")

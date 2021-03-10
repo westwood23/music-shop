@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = MusicShopApplication.class)
-@Sql({"classpath:/schema.sql", "classpath:/data.sql"})
+//@Sql({"classpath:/schema.sql", "classpath:/data.sql"})
 @Transactional
 class ItemServiceTest {
 

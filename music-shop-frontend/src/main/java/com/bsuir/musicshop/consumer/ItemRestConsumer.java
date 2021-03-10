@@ -26,6 +26,8 @@ public class ItemRestConsumer {
 
     public List<Item> findAllItems() {
 
+        System.out.println("test");
+
         return restTemplate.exchange(url,
                 HttpMethod.GET,
                 null,

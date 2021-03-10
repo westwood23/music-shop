@@ -16,13 +16,12 @@ import java.util.List;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "order_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer orderId;
 
     @Column(name = "order_date")
     private LocalDate orderDate;
-
 
     @OneToMany()
     @JoinColumn(name = "item")
