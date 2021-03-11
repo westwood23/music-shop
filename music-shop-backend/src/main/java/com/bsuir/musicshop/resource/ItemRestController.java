@@ -1,12 +1,14 @@
 package com.bsuir.musicshop.resource;
 
-import com.bsuir.musicshop.model.Item;
-import com.bsuir.musicshop.service.ItemService;
-import lombok.AllArgsConstructor;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.bsuir.musicshop.model.Item;
+import com.bsuir.musicshop.service.ItemService;
+
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController

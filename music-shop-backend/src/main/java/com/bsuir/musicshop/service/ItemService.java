@@ -1,12 +1,14 @@
 package com.bsuir.musicshop.service;
 
-import com.bsuir.musicshop.model.Item;
-import com.bsuir.musicshop.repository.ItemRepository;
-import lombok.AllArgsConstructor;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.bsuir.musicshop.model.Item;
+import com.bsuir.musicshop.repository.ItemRepository;
+
+import lombok.AllArgsConstructor;
 
 
 @Service

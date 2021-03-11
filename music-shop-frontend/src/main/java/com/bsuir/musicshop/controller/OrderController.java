@@ -1,24 +1,23 @@
 package com.bsuir.musicshop.controller;
 
-import com.bsuir.musicshop.consumer.ItemRestConsumer;
-import com.bsuir.musicshop.consumer.OrderRestConsumer;
-import com.bsuir.musicshop.model.Item;
-import com.bsuir.musicshop.model.Order;
-import com.bsuir.musicshop.validator.OrderValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.bsuir.musicshop.consumer.ItemRestConsumer;
+import com.bsuir.musicshop.consumer.OrderRestConsumer;
+import com.bsuir.musicshop.model.*;
+import com.bsuir.musicshop.validator.OrderValidator;
 
 @Controller
 @RequestMapping("/orders")
@@ -40,6 +39,12 @@ public class OrderController {
     @GetMapping
     public final String orders(Model model){
         model.addAttribute("orders", orderRestConsumer.findAllOrderDTOs());
+        return "orders";
+    }
+
+    @GetMapping(value = "/by-cost")
+    public final String sortedByCost(Model model) {
+        model.addAttribute("orders", orderRestConsumer.findSortedOrdersDtos());
         return "orders";
     }
 
@@ -111,5 +116,23 @@ public class OrderController {
 
         model.addAttribute("orders", orderRestConsumer.findOrdersByDates(from, to));
         return "orders";
+    }
+
+    @GetMapping(value = "/stats")
+    public String getStats(Model model) {
+        Stats stats = orderRestConsumer.getStats();
+        model.addAttribute("stats", stats);
+        return "statistics";
+    }
+
+    @GetMapping(value = "/paid/{id}")
+    public String markAsPaid(@PathVariable String id) {
+        orderRestConsumer.markAsPaid(Integer.parseInt(id));
+        return "redirect:/orders";
+    }
+
+    @PostMapping(value = "/{id}/bill")
+    public void createBill(@PathVariable String id) {
+        orderRestConsumer.createBill(id);
     }
 }

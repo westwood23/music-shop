@@ -1,11 +1,11 @@
 package com.bsuir.musicshop.repository;
 
-import com.bsuir.musicshop.model.Item;
-import org.springframework.data.jpa.repository.Query;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.bsuir.musicshop.model.Item;
 
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Integer> {

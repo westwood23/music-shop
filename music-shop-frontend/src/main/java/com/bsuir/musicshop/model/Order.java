@@ -1,10 +1,10 @@
 package com.bsuir.musicshop.model;
 
-import lombok.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+
+import lombok.*;
 
 @Builder
 @Data

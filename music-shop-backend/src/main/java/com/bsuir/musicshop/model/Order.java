@@ -1,11 +1,12 @@
 package com.bsuir.musicshop.model;
 
-import lombok.*;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+
+import javax.persistence.*;
+
+import lombok.*;
 
 @Builder
 @Data
@@ -32,4 +33,7 @@ public class Order {
 
     @Column(name = "order_cost")
     private BigDecimal orderCost;
+
+    @Column(name = "is_paid")
+    private Boolean isPaid;
 }

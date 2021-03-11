@@ -1,14 +1,15 @@
 package com.bsuir.musicshop.resource;
 
-import com.bsuir.musicshop.model.Order;
-import com.bsuir.musicshop.model.OrderDto;
-import com.bsuir.musicshop.service.OrderService;
-import lombok.AllArgsConstructor;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.List;
+import com.bsuir.musicshop.model.*;
+import com.bsuir.musicshop.service.OrderService;
+
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
@@ -21,6 +22,7 @@ public class OrderRestController {
     public List<OrderDto> findAllOrderDTOs() {
         return orderService.findAllOrderDTOs();
     }
+
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
@@ -51,5 +53,25 @@ public class OrderRestController {
         LocalDate to = LocalDate.parse(dateTo);
 
         return orderService.findOrdersByDates(from, to);
+    }
+
+    @GetMapping(value = "/by-cost")
+    public List<OrderDto> sortedOrders() {
+        return orderService.findSortedDtos();
+    }
+
+    @GetMapping(value = "/stats")
+    public Stats getStats() {
+        return orderService.getStats();
+    }
+
+    @PutMapping(value = "/paid/{id}")
+    public void markAsPaid(@PathVariable Integer id) {
+        orderService.markIsPaid(id);
+    }
+
+    @PostMapping(value = "/{id}/bill")
+    public void createBill(@PathVariable Integer id) {
+        orderService.createBill(id);
     }
 }

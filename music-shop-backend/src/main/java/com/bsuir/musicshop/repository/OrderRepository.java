@@ -1,11 +1,12 @@
 package com.bsuir.musicshop.repository;
 
-import com.bsuir.musicshop.model.Order;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.util.List;
+import com.bsuir.musicshop.model.Order;
 
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Integer>{

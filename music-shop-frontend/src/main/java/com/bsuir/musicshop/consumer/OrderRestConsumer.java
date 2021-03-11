@@ -1,7 +1,9 @@
 package com.bsuir.musicshop.consumer;
 
-import com.bsuir.musicshop.model.Order;
-import com.bsuir.musicshop.model.OrderDto;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -9,8 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
-import java.util.List;
+import com.bsuir.musicshop.model.*;
 
 @Component
 public class OrderRestConsumer {
@@ -23,6 +24,14 @@ public class OrderRestConsumer {
 
     public List<OrderDto> findAllOrderDTOs() {
         return restTemplate.exchange(url,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<OrderDto>>(){})
+                .getBody();
+    }
+
+    public List<OrderDto> findSortedOrdersDtos() {
+        return restTemplate.exchange(url + "/by-cost",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<OrderDto>>(){})
@@ -52,4 +61,17 @@ public class OrderRestConsumer {
                 new ParameterizedTypeReference<List<OrderDto>>(){})
                 .getBody();
     }
+
+    public Stats getStats() {
+        return restTemplate.getForEntity(url + "/stats", Stats.class).getBody();
+    }
+
+    public void markAsPaid(Integer id) {
+        restTemplate.put(url + "/paid/" + id, Optional.empty());
+    }
+
+    public void createBill(String id) {
+        restTemplate.postForEntity(url + "/" + id + "/bill", Optional.empty(), Void.class);
+    }
+
 }

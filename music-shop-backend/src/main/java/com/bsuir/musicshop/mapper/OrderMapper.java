@@ -1,9 +1,10 @@
 package com.bsuir.musicshop.mapper;
 
 
+import org.springframework.stereotype.Component;
+
 import com.bsuir.musicshop.model.Order;
 import com.bsuir.musicshop.model.OrderDto;
-import org.springframework.stereotype.Component;
 
 @Component
 public class OrderMapper {

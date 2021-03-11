@@ -1,9 +1,10 @@
 package com.bsuir.musicshop.model;
 
-import lombok.*;
+import java.math.BigDecimal;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+
+import lombok.*;
 
 @Builder
 @Data
