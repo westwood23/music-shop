@@ -125,14 +125,9 @@ public class OrderController {
         return "statistics";
     }
 
-    @GetMapping(value = "/paid/{id}")
-    public String markAsPaid(@PathVariable String id) {
-        orderRestConsumer.markAsPaid(Integer.parseInt(id));
+    @PostMapping(value = "/paid/{id}")
+    public String setAsPaid(@PathVariable Integer id) {
+        orderRestConsumer.markAsPaid(id);
         return "redirect:/orders";
-    }
-
-    @PostMapping(value = "/{id}/bill")
-    public void createBill(@PathVariable String id) {
-        orderRestConsumer.createBill(id);
     }
 }

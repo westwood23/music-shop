@@ -17,9 +17,20 @@
 </head>
 <body>
 <header>
-    <nav id="main-header"
-         class="py-1 mb-3 navbar navbar-expand-sm navbar-light bg-light text-dark">
-        <span class="navbar-brand text-uppercase mr-auto">Statistics</span>
+    <nav class="pl-2 navbar navbar-expand-sm navbar-dark bg-dark text-light  p-0">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <a class="nav-item nav-link"
+                   href="orders.html"
+                   th:href="@{/orders}">Orders</a>
+                <a class="nav-item nav-link active"
+                   href="assortment.html"
+                   th:href="@{/items}">Assortment</a>
+                <a class="nav-item nav-link"
+                   href="#"
+                   th:href="@{/orders/stats}">Statistic</a>
+            </ul>
+        </div>
     </nav>
 </header>
 <section id="statistics">
@@ -31,16 +42,16 @@
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                         <tr class="d-flex">
-                            <th class="col-3 text-center">Orders count</th>
-                            <th class="col-3 text-center">Orders amount</th>
+                            <th class="col text-center">Orders count</th>
+                            <th class="col text-center">Orders amount</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr class="d-flex">
 
-                            <td class="col-3 text-center"
+                            <td class="col text-center"
                                 th:text="${stats.count}"></td>
-                            <td class="col-3 text-center"
+                            <td class="col text-center"
                                 th:text="${stats.cost}"></td>
                         </tr>
 

@@ -14,4 +14,5 @@ public class OrderDto {
     private Integer orderId;
     private LocalDate orderDate;
     private BigDecimal orderCost;
+    private Boolean isPaid;
 }

@@ -70,8 +70,4 @@ public class OrderRestConsumer {
         restTemplate.put(url + "/paid/" + id, Optional.empty());
     }
 
-    public void createBill(String id) {
-        restTemplate.postForEntity(url + "/" + id + "/bill", Optional.empty(), Void.class);
-    }
-
 }

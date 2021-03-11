@@ -21,4 +21,6 @@ public class Order {
     private List<String> itemsIds;
 
     private BigDecimal orderCost;
+
+    private Boolean isPaid;
 }

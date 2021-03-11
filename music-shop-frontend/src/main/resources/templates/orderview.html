@@ -51,14 +51,35 @@
                     <table class="table table-dark">
                         <tbody class="table-dark">
                         <tr class="d-flex">
-                            <td class="col-4 text-uppercase"
+                            <td class="col text-uppercase"
                                 th:text="${order.orderId!=null} ? 'Number: '+${order.orderId} : 'Number:'">
                             </td>
-                            <td class="col-4 text-uppercase"
+                            <td class="col text-uppercase"
                                 th:text="${order.orderDate!=null} ? 'Date: '+${order.orderDate} : 'Date:'">
                             </td>
-                            <td class="col-4 text-uppercase"
+                            <td class="col text-uppercase"
                                 th:text="${order.orderCost!=null} ? 'Cost: '+${order.orderCost} : 'Cost:'">
+                            </td>
+                            <td class="col text-uppercase"
+                                th:text="${order.isPaid} ? 'Paid' : 'New'">
+                            </td>
+                            <td class="col text-uppercase">
+                                <form method="POST" th:action="@{|/orders/paid/${order.orderId}|}">
+                                    <button type="submit" name="submit" value="value" class="link-button">Payment</button>
+                                </form>
+<!--                                <form class="orderForm">-->
+<!--                                    <a href="orders.html"-->
+<!--                                       th:action="@{|/orders/paid/${order.orderId}|}"-->
+<!--                                       th:method="post"-->
+<!--                                       th:onclick="@{document.forms['orderForm'].submit(); return false;}"-->
+<!--                                       th:href="@{/orders}"-->
+<!--                                       class="btn-sm btn-outline-secondary"-->
+<!--                                       title="Payment"-->
+<!--                                       data-toggle="tooltip"-->
+<!--                                       data-placement="top">-->
+<!--                                        <i class="fa fa-pencil"></i> <span-->
+<!--                                            class="d-none d-md-inline">Payment</span></a>-->
+<!--                                </form>-->
                             </td>
                         </tr>
                         </tbody>
@@ -98,11 +119,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr class="d-flex"
-                                th:each="item : ${items}">
-                                <td class="col-6 text-center" th:text="${item.itemName}">Guitar 1</td>
-                                <td class="col-6 text-center" th:text="${item.itemPrice}">1000</td>
-                            </tr>
+                        <tr class="d-flex"
+                            th:each="item : ${items}">
+                            <td class="col-6 text-center" th:text="${item.itemName}">Guitar 1</td>
+                            <td class="col-6 text-center" th:text="${item.itemPrice}">1000</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -112,7 +133,7 @@
 </section>
 <footer>
     <hr/>
-    <p class="text-center">&copy; 2019</p>
+    <p class="text-center">&copy; 2021</p>
 </footer>
 
 <script th:src="@{/js/jquery.min.js}"></script>

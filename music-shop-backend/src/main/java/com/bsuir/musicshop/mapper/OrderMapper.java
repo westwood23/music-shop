@@ -13,6 +13,7 @@ public class OrderMapper {
                 .orderCost(source.getOrderCost())
                 .orderId(source.getOrderId())
                 .orderDate(source.getOrderDate())
+                .isPaid(source.getIsPaid())
                 .build();
     }
 }

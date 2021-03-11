@@ -1,0 +1,6 @@
+Thank you for the purchase! 
+Order number: 1
+Order creation date: 2021-03-12
+Items count: 1
+Payment date: 2021-03-12 01:11:52
+Cost: 123.00

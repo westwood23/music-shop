@@ -69,9 +69,4 @@ public class OrderRestController {
     public void markAsPaid(@PathVariable Integer id) {
         orderService.markIsPaid(id);
     }
-
-    @PostMapping(value = "/{id}/bill")
-    public void createBill(@PathVariable Integer id) {
-        orderService.createBill(id);
-    }
 }
